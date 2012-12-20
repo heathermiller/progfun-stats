@@ -4,7 +4,7 @@ This repository contains the data from the "progfun" survey, and the source code
 
 We encourage you to checkout the repository, to generate the plots shown in the article yourself, and to explore the data further. Given sufficient interest, we plan on writing a follow-up article, and we'd love to hear from you! If you've found anything interesting in the data, or otherwise have a cool/interesting visualization to share, please don't hesitate to let us know! We'll include as many as we can in our follow-up article.
 
-(_Please note:_ we plan on adding a few more graph types and doing some organizational work in this repository, so keep an eye out for improvements!)
+(*Please note:* we plan on adding a few more graph types and doing some organizational work in this repository, so keep an eye out for improvements!)
 
 Pull requests are also welcome. Please contact [Heather](http://people.epfl.ch/heather.miller), post in the comments [in the article](http://docs.scala-lang.org/news/functional-programming-principles-in-scala-impressions-and-statistics.html)
 
