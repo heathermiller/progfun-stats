@@ -6,7 +6,7 @@ We encourage you to checkout the repository, to generate the plots shown in the 
 
 (*Please note:* we plan on adding a few more graph types and doing some organizational work in this repository, so keep an eye out for improvements!)
 
-Pull requests are also welcome. Please contact [Heather](http://people.epfl.ch/heather.miller), post in the comments [in the article](http://docs.scala-lang.org/news/functional-programming-principles-in-scala-impressions-and-statistics.html)
+Pull requests are also welcome. Please either post in the comments [in the article](http://docs.scala-lang.org/news/functional-programming-principles-in-scala-impressions-and-statistics.html) or contact [Heather](http://people.epfl.ch/heather.miller) if need be.
 
 ## The Survey
 
