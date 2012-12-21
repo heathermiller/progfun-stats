@@ -83,6 +83,13 @@ In all cases, there are a few fields that you need to implement-- for example, t
 
 Have a look at the visualizations already implemented (the ones visible [in the article](http://docs.scala-lang.org/news/functional-programming-principles-in-scala-impressions-and-statistics.html)) in [ProgfunStats.scala](https://github.com/heathermiller/progfun-stats/blob/master/src/main/scala/progfun/ProgfunStats.scala)
 
+### Accessing the survey data from Scala
+
+There are two ways to get to the data, depending on what you'd like to do with it. In general, all of the survey data lives in the [`CourseraData`](https://github.com/heathermiller/progfun-stats/blob/master/src/main/scala/progfun/CourseraData.scala) object. You can:
+
+1. **Access entire rows of the dataset**, _i.e._, a single question answered by all respondents of the survey. For example, to see what all responses were for the question: "What's your highest degree?", you can simply `import CourseraData.degrees` (have a look at [`CourseraData`](https://github.com/heathermiller/progfun-stats/blob/master/src/main/scala/progfun/CourseraData.scala) to see all other possible options for import)
+2. **Access all responses per respondent**, _i.e._, a list of [`User`](https://github.com/heathermiller/progfun-stats/blob/master/src/main/scala/progfun/User.scala)s, each has a field for each question asked in the survey (luckily no more than 22!). Simply `import CourseraData.users`.This is useful when you want to plot two qualities against each other. For example, in the [graph of perceived difficulty vs background/field](https://github.com/heathermiller/progfun-stats/blob/master/src/main/scala/progfun/ProgfunStats.scala#L95) we need to know what a single user inputted for two different fields. That is, we needed to first filter out only Java/C/C++/FP experts, and then for those users, we needed to examine how difficult they believed the course to be.
+
 ## LICENSE
 
 The source code and data within this repository are open source under the Apache License V2.
@@ -92,7 +99,7 @@ Like all licences the Apache License v2 grants certain rights under certain cond
 
 - copy, modify and distribute the covered software in source and/or binary forms
 - exercise patent rights that would normally only extend to the licensor provided that:
-- all copies, modified or unmodified, are accompanied by a copy of the licence
+- all copies, modified or unmodified, are accompanied by a copy of the license
 - all modifications are clearly marked as being the work of the modifier
 
 See the [V2 Apache License](http://www.apache.org/licenses/LICENSE-2.0) itself, or the [summary](http://www.oss-watch.ac.uk/resources/apache2) for more information.
