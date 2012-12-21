@@ -43,7 +43,7 @@ The following questions (with their available choices) were on the survey:
   - Possible choices: Eclipse, IntelliJ, Sublime Text, Visual Studio, XCode, TextMate, emacs, vim, Other
 - **What editor did you end up using for the majority of the course?**
   - Possible choices: Eclipse, IntelliJ, Sublime Text, TextMate, emacs, vim, Other
-- **What experience do you have with other programming languages or paradigms?** (asked for Java, C/C++/Objective-C, Python / Ruby / Perl / other scripting language, C#/.NET, JavaScript, Haskell/OCaml/ML/F#, /Scheme/Clojure)
+- **What experience do you have with other programming languages or paradigms?** (asked once each for Java, C/C++/Objective-C, Python/Ruby/Perl/other scripting language, C#/.NET, JavaScript, Haskell/OCaml/ML/F#, Lisp/Scheme/Clojure)
   - Possible choices: No experience / not seen it at all, I've seen and understand some code, I have some experience writing code, I'm fluent, I'm an expert
 
 ## Dependencies
