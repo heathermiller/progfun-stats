@@ -144,9 +144,84 @@ object BackgroundDifficultyBarGraph extends GroupedBarGraphFactory with App {
   writeHtml()
 }
 
+/** base class representing a *grouped* bar graph of students'
+  * reported editors grouped by country
+  */
+abstract class EditorCountryBarGraph(val name: String,
+                                     groupByEditor: List[User] => Map[String, List[User]],
+                                     minUsersPerCountry: Int = 100,
+                                     minEditorsCount: Int = 3) extends GroupedBarGraphFactory {
+
+  /* width and height of final plot. Overrides default of 960 x 480 */
+  override val width = 1600
+  override val height = 240
+
+  val mostPopularEditors = List("eclipse", "intellij", "netbeans", "sublime", "textmate", "emacs", "vim")
+  val allMostPopularEditors = (groupByEditor(CourseraData.users).filter {
+    case (editor, u) => mostPopularEditors.exists(e => editor.contains(e)) && (u.size > minEditorsCount)
+  }).toList.map(_._1).sorted
+
+  def onlyMostPopular(users: List[User]): List[(String, List[User])] = {
+    val allEditors: Map[String, List[User]] = groupByEditor(users)
+    for {
+      popEditor <- allMostPopularEditors
+    } yield (popEditor -> allEditors.get(popEditor).getOrElse(Nil))
+  }
+
+  /* the captions represent the legend (the colors for each bar).
+   for the moment, it must begin with a string called "Key". this will be removed shortly */
+  val captions = "Key" :: allMostPopularEditors
+
+
+  /* label for the y-axis */
+  def label = "Percentage"
+
+  def makeEditorMap(users: List[User]): List[(String, Int)] = {
+    val popular: List[(String, List[User])] = onlyMostPopular(users)
+    val totalUsers: Int = popular.foldLeft(0)((total, p) => total + p._2.size)
+    popular map {
+      case (editor, u) => (editor, percentOf(u.length, totalUsers))
+    }
+  }
+
+  val usersByCountry = CourseraData.byCountry().filter(_._2.size >= minUsersPerCountry).toList.sortBy(_._1)
+  val editorsByCountry: List[(String, List[(String, Int)])] = usersByCountry map {
+    case (country, users) => (country, makeEditorMap(users))
+  }
+
+  /* this effectively returns a List[(String, Int)]
+  * it represents the data that goes into your bar graph
+  * where the String is the label on the x-axis, and the
+  * Int is the value for each bar */
+  def data: List[(String, List[Int])] = editorsByCountry map {
+    case (country, editors) => (country, editors.map(_._2))
+  }
+}
+
 /** object representing a *grouped* bar graph of students'
- *  reported difficulty relative to highest level of education
- */
+  * reported course editors by country
+  */
+object CourseEditorCountryBarGraph extends EditorCountryBarGraph(
+  name = "editors-by-country-course.html",
+  groupByEditor = CourseraData.byCourseEditor
+) with App {
+  writeHtml()
+}
+
+
+/** object representing a *grouped* bar graph of students'
+  * reported preferred editors by country
+  */
+object PrefEditorCountryBarGraph extends EditorCountryBarGraph(
+  name = "editors-by-country-pref.html",
+  groupByEditor = CourseraData.byPrefEditor
+) with App {
+  writeHtml()
+}
+
+/** object representing a *grouped* bar graph of students'
+  * reported difficulty relative to highest level of education
+  */
 object EducationDifficultyBarGraph extends GroupedBarGraphFactory with App {
   import CourseraData.users
 
@@ -447,8 +522,10 @@ object ProgfunStats extends App {
     WhatInterestedYouPieChart,
     EditorGroupedBarGraph,
     FollowupCourseBarGraph,
-    WorthItBarGraph
-    ).foreach { graph =>
+    WorthItBarGraph,
+    CourseEditorCountryBarGraph,
+    PrefEditorCountryBarGraph
+  ).foreach { graph =>
       graph.main(Array())
       println("generated " + graph.name)
     }

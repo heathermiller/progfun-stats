@@ -1,6 +1,5 @@
 package progfun
 
-import java.io._
 import scala.io.Source
 
 object CourseraData extends Utilities {
@@ -61,5 +60,9 @@ object CourseraData extends Utilities {
   val jsExp             = users.map(_.jsExp)
   val funcExp           = users.map(_.funcExp)
   val lispExp           = users.map(_.lispExp)
+
+  def byCourseEditor(users: List[User] = users): Map[String, List[User]] = users.groupBy(_.courseEditor.toLowerCase)
+  def byPrefEditor(users: List[User] = users): Map[String, List[User]] = users.groupBy(_.prefEditor.toLowerCase)
+  def byCountry(users: List[User] = users) = users.groupBy(_.country)
 
 }
