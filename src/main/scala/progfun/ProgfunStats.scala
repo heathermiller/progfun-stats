@@ -12,10 +12,8 @@ object ExperienceBarGraph extends GroupedBarGraphFactory with App {
   /* label for the y-axis */
   def label: String = "Percentage"
 
-  /* the captions represent the legend (the colors for each bar).
-     for the moment, it must begin with a string called "Key". this will be removed shortly */
-  val captions = List("Key",
-                      "No experience / not seen it at all",
+  /* the captions represent the legend (the colors for each bar). */
+  val captions = List("No experience / not seen it at all",
                       "I've seen and understand some code",
                       "I have some experience writing code",
                       "I'm fluent",
@@ -30,9 +28,9 @@ object ExperienceBarGraph extends GroupedBarGraphFactory with App {
   val data =
     List("Java", "C/C++/Objective-C", "Python/Ruby/Perl", "C#/.NET",
          "JavaScript", "Haskell/OCaml/ML/F#", "Lisp/Scheme/Clojure").zipWithIndex map { case (lang, langNum) =>
-      val percentages = 1 to 5 map { i =>
+      val percentages = 0 to 4 map { i =>
         val num = langs(langNum).filter(_ == captions(i)).size
-        (num.toDouble / total * 100).round.toInt
+        percentOf(num, total)
       }
       (lang, percentages.toList)
     }
@@ -53,9 +51,8 @@ object ExperienceDifficultyBarGraph extends GroupedBarGraphFactory with App {
   override val width = 450
   override val height = 240
 
-  /* the captions represent the legend (the colors for each bar).
-     for the moment, it must begin with a string called "Key". this will be removed shortly */
-  val captions = List("Key","1","2","3","4","5")
+  /* the captions represent the legend (the colors for each bar).*/
+  val captions = List("1","2","3","4","5")
 
   /* label for the y-axis */
   def label = "Percentage"
@@ -67,9 +64,9 @@ object ExperienceDifficultyBarGraph extends GroupedBarGraphFactory with App {
   val javaers = getExperts(_.javaExp)
   val fpers   = getExperts(_.funcExp)
 
-  def makeDifficultyMap(usrs: List[User]): Map[Int, Long] =
+  def makeDifficultyMap(usrs: List[User]): Map[Int, Int] =
     usrs.groupBy(user => user.difficultyHW)
-        .map(kv => (kv._1, (kv._2.length.toDouble/usrs.length*100).round))
+        .map(kv => (kv._1, percentOf(kv._2.length, usrs.length)))
 
   val difficultyC    = makeDifficultyMap(cers)
   val difficultyJava = makeDifficultyMap(javaers)
@@ -102,9 +99,8 @@ object BackgroundDifficultyBarGraph extends GroupedBarGraphFactory with App {
   override val width = 450
   override val height = 240
 
-  /* the captions represent the legend (the colors for each bar).
-   for the moment, it must begin with a string called "Key". this will be removed shortly */
-  val captions = List("Key","1","2","3","4","5")
+  /* the captions represent the legend (the colors for each bar). */
+  val captions = List("1","2","3","4","5")
 
   /* label for the y-axis */
   def label = "Percentage"
@@ -122,9 +118,9 @@ object BackgroundDifficultyBarGraph extends GroupedBarGraphFactory with App {
   val nonCSUsers = users.filter(user => nonCSFields.contains(user.field))
   val csUsers    = users.filter(user => user.field == "Computer Science" || user.field == "Computer/Software Engineering")
 
-  def makeDifficultyMap(usrs: List[User]): Map[Int, Long] =
+  def makeDifficultyMap(usrs: List[User]): Map[Int, Int] =
     usrs.groupBy(user => user.difficultyHW)
-        .map(kv => (kv._1, (kv._2.length.toDouble/usrs.length*100).round))
+        .map(kv => (kv._1, percentOf(kv._2.length, usrs.length)))
 
   val difficultyNonCS = makeDifficultyMap(nonCSUsers)
   val difficultyCS    = makeDifficultyMap(csUsers)
@@ -162,15 +158,12 @@ abstract class EditorCountryBarGraph(val name: String,
   }).toList.map(_._1).sorted
 
   def onlyMostPopular(users: List[User]): List[(String, List[User])] = {
-    val allEditors: Map[String, List[User]] = groupByEditor(users)
-    for {
-      popEditor <- allMostPopularEditors
-    } yield (popEditor -> allEditors.get(popEditor).getOrElse(Nil))
+    val allEditors: Map[String, List[User]] = groupByEditor(users).withDefaultValue(Nil)
+    allMostPopularEditors map {popEditor => (popEditor -> allEditors(popEditor))}
   }
 
-  /* the captions represent the legend (the colors for each bar).
-   for the moment, it must begin with a string called "Key". this will be removed shortly */
-  val captions = "Key" :: allMostPopularEditors
+  /* the captions represent the legend (the colors for each bar). */
+  val captions = allMostPopularEditors
 
 
   /* label for the y-axis */
@@ -232,24 +225,20 @@ object EducationDifficultyBarGraph extends GroupedBarGraphFactory with App {
   override val width = 800
   override val height = 320
 
-  /* the captions represent the legend (the colors for each bar).
-   for the moment, it must begin with a string called "Key". this will be removed shortly */
-  val captions = List("Key","1","2","3","4","5")
+  /* the captions represent the legend (the colors for each bar). */
+  val captions = List("1","2","3","4","5")
 
   /* label for the y-axis */
   def label = "Percentage"
 
-  def makeDifficultyByDegree(deg: String): Map[Int, Long] = {
+  def makeDifficultyByDegree(deg: String): List[(Int, Int)] = {
     val usrsByDeg = users.filter(user => user.degree == deg)
     val perc = usrsByDeg.groupBy(user => user.difficultyHW)
-                        .map(kv => (kv._1, (kv._2.length.toDouble/usrsByDeg.length*100).round))
+                        .map(kv => (kv._1, percentOf(kv._2.length, usrsByDeg.length))).withDefaultValue(0)
 
-    val withAllKeys = (List(1, 2, 3, 4, 5) map { key =>
-      if (perc.isDefinedAt(key)) (key, perc(key))
-      else (key, 0L)
-    }).toMap
+    val withAllKeys = List(1, 2, 3, 4, 5) map { key => (key, perc(key)) }
 
-    withAllKeys
+    withAllKeys.sorted
   }
 
   val difficultyNoHs      = makeDifficultyByDegree("No High School (or equivalent)")
@@ -266,13 +255,13 @@ object EducationDifficultyBarGraph extends GroupedBarGraphFactory with App {
   * Int is the value for each bar */
   def data =
     List(
-      ("No HS",     difficultyNoHs.toList.sorted.map(_._2)),
-      ("Some HS",   difficultySomeHs.toList.sorted.map(_._2)),
-      ("HS",        difficultyHs.toList.sorted.map(_._2)),
-      ("Some Univ", difficultySomeColl.toList.sorted.map(_._2)),
-      ("Bachelor",  difficultyBachelor.toList.sorted.map(_._2)),
-      ("Master",    difficultyMaster.toList.sorted.map(_._2)),
-      ("PhD",       difficultyDoctorate.toList.sorted.map(_._2))
+      ("No HS",     difficultyNoHs.map(_._2)),
+      ("Some HS",   difficultySomeHs.map(_._2)),
+      ("HS",        difficultyHs.map(_._2)),
+      ("Some Univ", difficultySomeColl.map(_._2)),
+      ("Bachelor",  difficultyBachelor.map(_._2)),
+      ("Master",    difficultyMaster.map(_._2)),
+      ("PhD",       difficultyDoctorate.map(_._2))
     )
 
   writeHtml()
@@ -336,12 +325,12 @@ object EducationBarGraph extends SimpleBarGraphFactory with App {
       "Doctorate Degree (or equivalent)"
     )
     val toShort = (degreeOpts zip degreeLabels).toMap
-    val (listed, other) = degrees.partition(degree => degreeOpts.contains(degree))
+    val (listed, _) = degrees.partition(degree => degreeOpts.contains(degree))
     listed.groupBy(deg => deg)
           .map { case (k, v) => (toShort(k), v.length) }
           .toList
           .sortWith((p1, p2) => degreeLabels.indexOf(p1._1) < degreeLabels.indexOf(p2._1))
-          .map { case (deg, count) => (deg, (count.toDouble / degrees.length * 100).round.toInt) }
+          .map { case (deg, count) => (deg, percentOf(count, degrees.length)) }
   }
 
   writeHtml()
@@ -389,9 +378,8 @@ object EditorGroupedBarGraph extends GroupedBarGraphFactory with App {
   override val width = 500
   override val height = 240
 
-  /* the captions represent the legend (the colors for each bar).
-     for the moment, it must begin with a string called "Key". this will be removed shortly */
-  val captions = List("Key","Preferred for use outside of the course","Used for majority of course")
+  /* the captions represent the legend (the colors for each bar). */
+  val captions = List("Preferred for use outside of the course","Used for majority of course")
 
   /* the label on the y axis */
   val label = "Percentage"
@@ -420,7 +408,7 @@ object EditorGroupedBarGraph extends GroupedBarGraphFactory with App {
   * where the String is the label on the x-axis, and the
   * Int is the value for each bar */
   def data = {
-    val (courseEds, courseCnts) = courseEditorCount.unzip
+    val (_, courseCnts) = courseEditorCount.unzip
     val (prefEds, prefCnts) = prefEditorToGraph.unzip
     val unsorted = prefEds.zip(courseCnts.zip(prefCnts).map { case (courseCount, prefCount) =>
       val coursePerc = percentOf(courseCount, total)
@@ -460,8 +448,8 @@ object FollowupCourseBarGraph extends SimpleBarGraphFactory with App {
     val counts =
       getFreqs(followupCourse)
       .sortBy(_._1)
-      .map { case (name, value) =>
-            (name.toString, (value.toDouble / followupCourse.length * 100).round.toInt)
+      .map { case (key, value) =>
+            (key.toString, percentOf(value, followupCourse.length))
       }
     val correctedLabels: List[(String, Int)] =
       List(("1 Not Interested", counts(0)._2)) ++ counts.drop(1).take(3) ++ List(("5 Absolutely!",counts(4)._2))
@@ -495,8 +483,8 @@ object WorthItBarGraph extends SimpleBarGraphFactory with App {
     val counts =
       getFreqs(worthIt)
       .sortBy(_._1)
-      .map { case (name, value) =>
-            (name.toString, (value.toDouble / worthIt.length * 100).round.toInt)
+      .map { case (key, value) =>
+            (key.toString, percentOf(value, worthIt.length))
       }
     val correctedLabels: List[(String, Int)] =
       List(("1 Disagree", counts(0)._2)) ++ counts.drop(1).take(3) ++ List(("5 Agree",counts(4)._2))

@@ -26,8 +26,8 @@ abstract class SimpleBarGraphFactory extends GraphFactory with Utilities {
   def data: List[(String, AnyVal)]
 
   protected def csvData: String = {
-    val lines = data map { case (name, value) =>
-      name + "," + value
+    val lines = data map { case (key, value) =>
+      key + "," + value
     }
     "el1,el2\n" + lines.mkString("\n")
   }
@@ -77,7 +77,7 @@ abstract class GroupedBarGraphFactory extends GraphFactory with Utilities {
     val lines = data map { case (group, values) =>
       group + "," + values.mkString(",")
     }
-    captions.mkString(",") + "\n" + lines.mkString("\n")
+    ("Key" :: captions).mkString(",") + "\n" + lines.mkString("\n")
   }
 
   // output to directory "html"
