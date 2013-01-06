@@ -431,6 +431,101 @@ object WorthItBarGraph extends SimpleBarGraphFactory with App {
   writeHtml()
 }
 
+/** object representing a *grouped* bar graph of students'
+ *  programming languages experience relative to their age
+ */
+object LanguageAgeGraph extends GroupedBarGraphFactory with App {
+  import CourseraData.{ ages, javaExp, cExp, pythonExp, dotNetExp, jsExp,
+                       funcExp, lispExp}
+
+  /* file name to output to */
+  val name = "lang-age.html"
+
+  /* width and height of final plot are default*/
+  /* the label on the y axis */
+  val label = "Percentage"
+
+  /* the captions represent the legend (the colors for each bar) */
+  val captions = List("Key") ++ ages.filter(_.length < 6).distinct.sorted
+
+  // Extracting age of users and experience in specified programming language
+  def getLangAge(ages: List[String], langExp: List[String]): List[String] =
+    (ages zip langExp).filter(_._1.length < 6) // Cleaning incorrect ages
+                      .filter(_._2 != "No experience / not seen it at all")
+                      .filter(_._2 != "I've seen and understand some code")
+                      .map(_._1)
+
+  val langAge = Map("Java"                  -> getLangAge(ages, javaExp),
+                    "C/C++/Objective-C"     -> getLangAge(ages, cExp),
+                    "Python/Ruby/Perl"      -> getLangAge(ages, pythonExp),
+                    "C#/.NET"               -> getLangAge(ages, dotNetExp),
+                    "JavaScript"            -> getLangAge(ages, jsExp),
+                    "Haskell/OCaml/ML/F#"   -> getLangAge(ages, funcExp),
+                    "Lisp/Scheme/Clojure"    -> getLangAge(ages, lispExp))
+
+  // Calculating the percentages of users' age groups with experience in
+  // specified programming language
+  def calculatePercentage(lst: List[String]): Map[String, Float] =
+    lst.groupBy(x => x).map(x => (x._1, (x._2.size.toFloat * 100 / lst.length)))
+
+  val langAgePercentage = langAge transform ((k, v) => calculatePercentage(v))
+
+  def data = {
+    val resultsMap = for ((k, v) <- langAgePercentage)
+                     yield (k, v.toList.sortBy(_._1).map(_._2))
+    resultsMap.toList
+  }
+
+  writeHtml()
+}
+
+/** object representing a *grouped* bar graph showing spent time by users relative
+ *  to the experience in programming languages
+ */
+object LanguageSpentTime extends GroupedBarGraphFactory with App {
+  import CourseraData.{ timeSpent, javaExp, cExp, pythonExp, dotNetExp, jsExp,
+                       funcExp, lispExp}
+
+  /* file name to output to */
+  val name = "lang-time.html"
+
+  /* the captions represent the legend (the colors for each bar)
+     Sorting by spent time */
+  val captions = List("Key") ++ timeSpent.distinct.sortBy(_.split("-|\\+")(0).toInt)
+
+  /* width and height of final plot are default*/
+  /* the label on the y axis */
+  val label = "Percentage"
+
+  // Extracting spent time and experience in specified programming language
+  def getLangTimeSpent(ages: List[String], langExp: List[String]): List[String] =
+    (timeSpent zip langExp).filter(_._2 != "No experience / not seen it at all")
+                           .filter(_._2 != "I've seen and understand some code")
+                           .map(_._1)
+
+  val langTimeSpent = Map("Java"                  -> getLangTimeSpent(timeSpent, javaExp),
+                          "C/C++/Objective-C"     -> getLangTimeSpent(timeSpent, cExp),
+                          "Python/Ruby/Perl"      -> getLangTimeSpent(timeSpent, pythonExp),
+                          "C#/.NET"               -> getLangTimeSpent(timeSpent, dotNetExp),
+                          "JavaScript"            -> getLangTimeSpent(timeSpent, jsExp),
+                          "Haskell/OCaml/ML/F#"   -> getLangTimeSpent(timeSpent, funcExp),
+                          "Lisp/Scheme/Clojure"    -> getLangTimeSpent(timeSpent, lispExp))
+
+  // Calculating the percentages in groups divided by spent time
+  def calculatePercentage(lst: List[String]): Map[String, Float] =
+    lst.groupBy(x => x).map(x => (x._1, (x._2.size.toFloat * 100 / lst.length)))
+
+  val langTimePercentage = langTimeSpent transform ((k, v) => calculatePercentage(v))
+
+  def data = {
+    val resultsMap = for ((k, v) <- langTimePercentage)
+                     yield (k, v.toList.sortBy(_._1.split("-|\\+")(0).toInt)
+                                .map(_._2))
+    resultsMap.toList
+  }
+  writeHtml()
+}
+
 /** Shortcut for generating all graphs.
  *  Add any new graph to this list, and in sbt,
  *  run progfun.ProgfunStats to generate all graphs
@@ -447,7 +542,9 @@ object ProgfunStats extends App {
     WhatInterestedYouPieChart,
     EditorGroupedBarGraph,
     FollowupCourseBarGraph,
-    WorthItBarGraph
+    WorthItBarGraph,
+    LanguageAgeGraph,
+    LanguageSpentTime
     ).foreach { graph =>
       graph.main(Array())
       println("generated " + graph.name)
