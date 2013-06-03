@@ -265,6 +265,7 @@ object WorldMapDensityGraph extends WorldMapFactory with App {
   }
 
   override def label: String = "Density"
+  // override def popoverText: String = """<br>Number of Students: <b>'+data[iso]+'</b><br><span style="opacity: 0.5;">Population: '+population[iso]+'</span>'"""
 
   writeHtml()
 }
