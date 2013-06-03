@@ -1,5 +1,7 @@
 package progfun
 
+import scala.io.Source
+
 /** object representing a *grouped* bar graph of students'
  *  experience with other programming languages and paradigms
  */
@@ -203,17 +205,67 @@ object EducationDifficultyBarGraph extends GroupedBarGraphFactory with App {
   writeHtml()
 }
 
+/** object representing the plot of population vs the world map
+ */
+ // To create a WorldMap, one must implement the abstract members of
+ // WorldMapFactory. This includes `name` which is the name of the HTML
+ // file to be outputted, and `data`, a List[(String, Anyval)] where the
+ // String is the ISO2 code representing the country, and AnyVal is the
+ // numerical data that you'd like to have plotted.
+object WorldMapPopulationGraph extends WorldMapFactory with App {
+  import CourseraData.countries
+
+  /* file name to output to */
+  val name = "worldmap-population.html"
+
+  val data: List[(String, Int)] = {
+    val counts = getFreqs(countries)
+    val countriesNotRepresented: List[(String, Int)] = countryIso2.toList
+      .filter { case (country, iso) => !counts.exists(p => p._1 == country) }
+      .map { case (country, iso) => (country, 0) }
+
+    (counts ++ countriesNotRepresented)
+      .map { case (country, count) => (countryIso2(country), count)}
+      .sortBy(_._1)
+  }
+
+  writeHtml()
+}
+
+
 /** object representing the plot of population density vs the world map
  */
- // please note that WorldMapFactory needs a bit of reorganization
- // so be aware that it might soon be revised a bit.
- // after reorganization, you will be provided with a list of ISOs,
- // and you will have to provide values (AnyVal) associated with each
- // and implement a field called `data` as with other Factories
+ // To create a WorldMap, one must implement the abstract members of
+ // WorldMapFactory. This includes `name` which is the name of the HTML
+ // file to be outputted, and `data`, a List[(String, Anyval)] where the
+ // String is the ISO2 code representing the country, and AnyVal is the
+ // numerical data that you'd like to have plotted.
 object WorldMapDensityGraph extends WorldMapFactory with App {
+  import CourseraData.countries
 
   /* file name to output to */
   val name = "worldmap-density.html"
+
+  val data: List[(String, AnyVal)] = {
+    val counts = getFreqs(countries)
+    val countriesNotRepresented: List[(String, Int)] = countryIso2.toList
+      .filter { case (country, iso) => !counts.exists(p => p._1 == country) }
+      .map { case (country, iso) => (country, 0) }
+
+    val studentsPerCountry = (counts ++ countriesNotRepresented)
+      .map { case (country, count) => (countryIso2(country), count)}
+
+    val isoDensity = studentsPerCountry.map { case (iso, count) =>
+      val pop = iso2population getOrElse (iso, 1L)
+      if (pop == 1) (iso, 0)
+      else (iso, count / pop.toDouble)
+    }.sortBy(_._1)
+
+    isoDensity
+  }
+
+  override def label: String = "Density"
+
   writeHtml()
 }
 
