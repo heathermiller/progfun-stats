@@ -120,7 +120,7 @@ KM  COM 174 CN  Comoros Moroni  2170  773407  AF  .km KMF Franc 269     ar,fr-KM
 KN  KNA 659 SC  Saint Kitts and Nevis Basseterre  261 49898 NA  .kn XCD Dollar  +1-869      en-KN 3575174
 KP  PRK 408 KN  North Korea Pyongyang 120540  22912177  AS  .kp KPW Won 850 ###-### ^(\d{6})$ ko-KP 1873107 CN,KR,RU
 KR  KOR 410 KS  South Korea Seoul 98480 48422644  AS  .kr KRW Won 82  SEOUL ###-### ^(?:SEOUL)*(\d{6})$ ko-KR,en  1835841 KP
-XK  XKX 0 KV  Kosovo  Pristina    1800000 EU    EUR Euro        sq,sr 831053  RS,AL,MK,ME
+KV  XKX 0 KV  Kosovo  Pristina    1800000 EU    EUR Euro        sq,sr 831053  RS,AL,MK,ME
 KW  KWT 414 KU  Kuwait  Kuwait City 17820 2789132 AS  .kw KWD Dinar 965 ##### ^(\d{5})$ ar-KW,en  285570  SA,IQ
 KY  CYM 136 CJ  Cayman Islands  George Town 262 44270 NA  .ky KYD Dollar  +1-345      en-KY 3580718
 KZ  KAZ 398 KZ  Kazakhstan  Astana  2717300 15340000  AS  .kz KZT Tenge 7 ######  ^(\d{6})$ kk,ru 1522867 TM,CN,KG,UZ,RU
@@ -219,7 +219,7 @@ TG  TGO 768 TO  Togo  Lome  56785 6587239 AF  .tg XOF Franc 228     fr-TG,ee,hna
 TH  THA 764 TH  Thailand  Bangkok 514000  67089500  AS  .th THB Baht  66  ##### ^(\d{5})$ th,en 1605651 LA,MM,KH,MY
 TJ  TJK 762 TI  Tajikistan  Dushanbe  143100  7487489 AS  .tj TJS Somoni  992 ######  ^(\d{6})$ tg,ru 1220409 CN,AF,KG,UZ
 TK  TKL 772 TL  Tokelau   10  1466  OC  .tk NZD Dollar  690     tkl,en-TK 4031074
-TL  TLS 626 TT  East Timor  Dili  15007 1154625 OC  .tl USD Dollar  670     tet,pt-TL,id,en 1966436 ID
+TP  TLS 626 TT  East Timor  Dili  15007 1154625 OC  .tl USD Dollar  670     tet,pt-TL,id,en 1966436 ID
 TM  TKM 795 TX  Turkmenistan  Ashgabat  488100  4940916 AS  .tm TMT Manat 993 ######  ^(\d{6})$ tk,ru,uz  1218197 AF,IR,UZ,KZ
 TN  TUN 788 TS  Tunisia Tunis 163610  10589025  AF  .tn TND Dinar 216 ####  ^(\d{4})$ ar-TN,fr  2464461 DZ,LY
 TO  TON 776 TN  Tonga Nuku'alofa  748 122580  OC  .to TOP Pa'anga 676     to,en-TO  4032283

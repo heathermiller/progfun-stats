@@ -493,6 +493,7 @@ object ProgfunStats extends App {
     ExperienceDifficultyBarGraph,
     BackgroundDifficultyBarGraph,
     EducationDifficultyBarGraph,
+    WorldMapPopulationGraph,
     WorldMapDensityGraph,
     EducationBarGraph,
     WhereApplyPieChart,
