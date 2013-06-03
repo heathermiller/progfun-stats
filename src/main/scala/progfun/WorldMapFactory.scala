@@ -73,19 +73,11 @@ abstract class WorldMapFactory extends GraphFactory with Utilities {
     " }\n" +
     "});"
 
-  // output to directory "html"all
+  // output to directory "html"
   /* Required files: jquery-jvectormap, ../dat/worldmap.js,
    *                 resources/javascript/vectormap.js
    */
   def writeHtml(): Unit = {
-    // worldMapToJs(densCode zip dens, total, "density", "html/worldmap-density.js")
-    // worldMapToJs(densCode zip densCount, total, "count", "html/worldmap-density-count.js")
-    // worldMapToJs(densCode zip densPop, total, "population", "html/worldmap-density-pop.js")
-
-    // <script src="worldmap-density-count.js"></script>
-    // <script src="worldmap-density-pop.js"></script>
-    // <script src="worldmap-density.js"></script>
-
     val html =
       <html>
         <head>
