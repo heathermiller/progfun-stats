@@ -1,16 +1,14 @@
 # Progfun-stats
 
-This repository contains the data from the "progfun" survey, and the source code for many of the plots seen in the [_Functional Programming Principles in Scala: Impressions and Statistics_](http://docs.scala-lang.org/news/functional-programming-principles-in-scala-impressions-and-statistics.html) article on scala-lang.org.
+This repository contains the data from the **Spring 2013** "progfun" survey, and the source code for many of the plots seen in the [_Functional Programming Principles in Scala: Impressions and Statistics_](http://docs.scala-lang.org/news/functional-programming-principles-in-scala-impressions-and-statistics.html) (Fall 2012) article on scala-lang.org. (Of course, adapted to the statistics gathered from the Spring 2013 iteration of the course).
 
 We encourage you to checkout the repository, to generate the plots shown in the article yourself, and to explore the data further. Given sufficient interest, we plan on writing a follow-up article, and we'd love to hear from you! If you've found anything interesting in the data, or otherwise have a cool/interesting visualization to share, please don't hesitate to let us know! We'll include as many as we can in our follow-up article.
-
-(*Please note:* we plan on adding a few more graph types and doing some organizational work in this repository, so keep an eye out for improvements!)
 
 Pull requests are also welcome. Please either post in the comments [in the article](http://docs.scala-lang.org/news/functional-programming-principles-in-scala-impressions-and-statistics.html) or contact [Heather](http://people.epfl.ch/heather.miller) if need be.
 
 ## The Survey
 
-The survey was emailed to the ~50,000 students enrolled in the [_Functional Programming Principles in Scala_](https://www.coursera.org/course/progfun) MOOC on [Coursera](http://coursera.org). Out of those students, 7,492 responded.
+The survey was emailed to the ~37,000 students enrolled in the [_Functional Programming Principles in Scala_](https://www.coursera.org/course/progfun) MOOC on [Coursera](http://coursera.org). Out of those students, 4,596 responded.
 
 The following questions (with their available choices) were on the survey:
 
