@@ -8,7 +8,7 @@ Pull requests are also welcome. Please either post in the comments [in the artic
 
 ## The Survey
 
-The survey was emailed to the ~37,000 students enrolled in the [_Functional Programming Principles in Scala_](https://www.coursera.org/course/progfun) MOOC on [Coursera](http://coursera.org). Out of those students, 4,596 responded.
+The survey was emailed to the ~37,000 students enrolled in the **Spring 2013** [_Functional Programming Principles in Scala_](https://www.coursera.org/course/progfun) MOOC on [Coursera](http://coursera.org). Out of those students, 4,596 responded.
 
 The following questions (with their available choices) were on the survey:
 
