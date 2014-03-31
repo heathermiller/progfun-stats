@@ -1,6 +1,6 @@
 # Progfun-stats
 
-This repository contains the data from the **Spring 2013** "progfun" survey, and the source code for many of the plots seen in the [_Functional Programming Principles in Scala: Impressions and Statistics_](http://docs.scala-lang.org/news/functional-programming-principles-in-scala-impressions-and-statistics.html) (Fall 2012) article on scala-lang.org. (Of course, adapted to the statistics gathered from the Spring 2013 iteration of the course).
+This repository contains the data from the **Fall 2013** "progfun" survey, and the source code for many of the plots seen in the [_Functional Programming Principles in Scala: Impressions and Statistics_](http://docs.scala-lang.org/news/functional-programming-principles-in-scala-impressions-and-statistics.html) (Fall 2012) article on scala-lang.org. (Of course, adapted to the statistics gathered from the Spring 2013 iteration of the course).
 
 We encourage you to checkout the repository, to generate the plots shown in the article yourself, and to explore the data further. Given sufficient interest, we plan on writing a follow-up article, and we'd love to hear from you! If you've found anything interesting in the data, or otherwise have a cool/interesting visualization to share, please don't hesitate to let us know! We'll include as many as we can in our follow-up article.
 
@@ -8,7 +8,7 @@ Pull requests are also welcome. Please either post in the comments [in the artic
 
 ## The Survey
 
-The survey was emailed to the ~37,000 students enrolled in the **Spring 2013** [_Functional Programming Principles in Scala_](https://www.coursera.org/course/progfun) MOOC on [Coursera](http://coursera.org). Out of those students, 4,596 responded.
+The survey was emailed to the ~36,000 students enrolled in the **Fall 2013** [_Functional Programming Principles in Scala_](https://www.coursera.org/course/progfun) MOOC on [Coursera](http://coursera.org). Out of those students, 3,786 responded.
 
 The following questions (with their available choices) were on the survey:
 
@@ -104,7 +104,7 @@ See the [V2 Apache License](http://www.apache.org/licenses/LICENSE-2.0) itself, 
 
 ### Apache License V2
 
-Copyright 2012 École Polytechnique Fédérale de Lausanne (EPFL)
+Copyright 2012-2014 École Polytechnique Fédérale de Lausanne (EPFL)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
