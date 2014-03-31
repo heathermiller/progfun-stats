@@ -5,7 +5,7 @@ import scala.io.Source
 
 object CourseraData extends Utilities {
 
-  private val lines = Source.fromFile("dat/progfun.tsv").getLines.toList
+  private val lines = Source.fromFile("dat/progfun-nov2013.tsv").getLines.toList
 
   val users: List[User] = lines.tail.map { line =>
     val xs = line.split("\t").toList
