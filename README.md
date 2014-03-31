@@ -1,6 +1,6 @@
 # Progfun-stats
 
-This repository contains the data from the **Fall 2013** "progfun" survey, and the source code for many of the plots seen in the [_Functional Programming Principles in Scala: Impressions and Statistics_](http://docs.scala-lang.org/news/functional-programming-principles-in-scala-impressions-and-statistics.html) (Fall 2012) article on scala-lang.org. (Of course, adapted to the statistics gathered from the Spring 2013 iteration of the course).
+This repository contains the data from the **Fall 2013** "progfun" survey, and the source code for many of the plots seen in the [_Functional Programming Principles in Scala: Impressions and Statistics_](http://docs.scala-lang.org/news/functional-programming-principles-in-scala-impressions-and-statistics.html) (Fall 2012) article on scala-lang.org. (Of course, adapted to the statistics gathered from the Fall 2013 iteration of the course).
 
 We encourage you to checkout the repository, to generate the plots shown in the article yourself, and to explore the data further. Given sufficient interest, we plan on writing a follow-up article, and we'd love to hear from you! If you've found anything interesting in the data, or otherwise have a cool/interesting visualization to share, please don't hesitate to let us know! We'll include as many as we can in our follow-up article.
 
